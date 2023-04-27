@@ -156,18 +156,28 @@ let idvc = new IDVC({
       verifyFace: verifyFace,
     };
 
-    fetch("https://dvs2.idware.net/api/v3/Verify", {
+    fetch("https://dvs2.idware.net/api/v3/Request", {
       method: "POST",
       headers: {
-        Authorization: "Bearer SECRET_KEY",
+        Authorization: "Bearer PUBLIC_KEY",
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify(request),
     })
       .then((response) => response.json())
       .then((data) => {
-        idvc.showSpinner(false);
-        console.log(data);
+            fetch("BACKEND_APP_URL", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json;charset=utf-8",
+              },
+              body: JSON.stringify(data),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+            })
+           
       })
       .catch((err) => {
         idvc.showSpinner(false);

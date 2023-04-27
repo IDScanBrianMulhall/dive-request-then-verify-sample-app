@@ -25,7 +25,7 @@ module.exports = {
   },
   plugins: [
         new HtmlWebpackPlugin({
-        title: 'DVS Demo Application',
+        title: 'DIVE Demo Application',
         template: 'index.html'
       })
   ],

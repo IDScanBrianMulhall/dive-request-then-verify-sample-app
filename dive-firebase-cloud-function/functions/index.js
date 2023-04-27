@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const https = require('https');
 
-const token = "REPLACE ME WITH SECRET KEY";
  
 const app = express();
 
@@ -12,16 +11,15 @@ app.use(express.json());
 app.use(cors({ origin: true }));
 
 app.post("/Verify", function (req, res) {
-  let requestData = JSON.stringify(req.body);
 
   const options = {
     host: "dvs2.idware.net",
     port: 443,
-    path: "/api/v3/Verify",
+    path: `/api/v3/Verify/${req.body.requestId}`,
     method: "POST",
     headers: {
-      "Content-Type": "application/json-patch+json",
-      "Authorization": "Bearer " + token,
+      "Content-Type": "multipart/form-data",
+      "Authorization": "Bearer SECRET_KEY",
     },
   };
 
@@ -39,7 +37,7 @@ app.post("/Verify", function (req, res) {
     });
   });
 
-  httpreq.write(requestData);
+  //httpreq.write();
   httpreq.end();
 });
 
